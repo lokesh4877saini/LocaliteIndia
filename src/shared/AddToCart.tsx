@@ -2,6 +2,7 @@
 
 import type { CartItem } from "@/types/cart";
 import { JSX } from "react";
+
 type AddToCartButtonProps = {
   item: CartItem;
   onAdd?: (item: CartItem) => void;
@@ -22,29 +23,21 @@ const AddToCartButton = ({
   };
 
   return (
-    <div className="w-full">
+    <div className={className}>
       <button
         onClick={handleClick}
-        className={`relative overflow-hidden border-2 border-blue-600 text-blue-600 font-medium py-2 px-4 rounded w-full transition-colors duration-300 group ${className}`}
+        className={`
+          relative overflow-hidden 
+          bg-[#f5f5f5] text-gray-800
+          border border-gray-400 
+          font-medium py-2 px-4 
+          rounded w-full
+          transition-all duration-300
+          hover:bg-gray-300 hover:text-black
+          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500
+        `}
       >
-        <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-          {label}
-        </span>
-        <span
-          className="
-            absolute inset-0
-            before:content-['']
-            before:absolute
-            before:inset-0
-            before:bg-blue-600
-            before:translate-y-full
-            before:transition-transform
-            before:duration-300
-            before:ease-in-out
-            group-hover:before:translate-y-0
-            before:z-0
-          "
-        />
+        {label}
       </button>
     </div>
   );

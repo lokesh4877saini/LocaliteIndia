@@ -1,6 +1,7 @@
 'use client'
 import { UseProductListOptions, UseProductListResult } from '../types/hookTypes';
 import { useEffect, useState } from "react";
+const preFix = `${process.env.NEXT_PUBLIC_API_ALL_PRODUCTS!}`;
 function useFetcher<TResponse = any, TRequest = any>({
     url,
     method = "POST",
@@ -17,7 +18,7 @@ function useFetcher<TResponse = any, TRequest = any>({
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(url, {
+                const response = await fetch(`${preFix}${url}`, {
                     method,
                     headers: {
                         "Content-Type": "application/json",

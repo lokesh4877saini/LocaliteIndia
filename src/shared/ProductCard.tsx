@@ -15,12 +15,11 @@ const ProductCard = ({
   base_price,
   sale_price,
   is_featured,
-  meta_title,
+  slug,
   main_image_url,
   image_gallery,
   short_description,
 }: ProductTest): ReactNode => {
-  // Images for normal and hover states
   const primaryImage = "/product/productImage.jpeg";
 //   const primaryImage = main_image_url || "/product/productImage.jpeg" ;
   const hoverImage = image_gallery && image_gallery.length > 0 ? image_gallery[0] : primaryImage;
@@ -40,17 +39,19 @@ const ProductCard = ({
         <AddToWishButton productId={String(id)} />
       </div>
 
-      <Link href={`/collections/${sanitizer(meta_title || '')}`}>
+      <Link href={`/collections/${sanitizer(slug || '')}`}>
         <div className="relative w-full h-60 mb-4 overflow-hidden">
           <Image
             src={primaryImage}
             alt={name}
             fill
+            unoptimized
             className="w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0 absolute top-0 left-0"
           />
           <Image
             src={hoverImage || "/product/productImage2.jpeg"}
             fill
+            unoptimized
             alt={`${name} hover`}
             className="w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute top-0 left-0"
           />

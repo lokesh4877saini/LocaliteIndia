@@ -4,7 +4,7 @@ export default function Footer(): ReactNode {
   return (
     <footer className="bg-[whitesmoke] text-[#343434]">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between flex-wrap p-4">
           {/* About Section */}
           <div className="md:w-1/4">
             <h2 className="text-xl font-semibold mb-4">About Us</h2>

@@ -46,6 +46,7 @@ export default function ImageSlider({ slides }: { slides: Slide[] }) {
                 src={slide.src}
                 alt={slide.alt || `Slide ${idx + 1}`}
                 fill
+                unoptimized
                 className="object-cover object-center"
                 priority={idx === 0}
               />
@@ -53,32 +54,6 @@ export default function ImageSlider({ slides }: { slides: Slide[] }) {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Thumbnails Swiper (optional) */}
-      
-      {/* <Swiper
-        modules={[Thumbs]}
-        onSwiper={setThumbsSwiper}
-        slidesPerView={4}
-        spaceBetween={10}
-        loop={true}
-        watchSlidesProgress
-        className="cursor-pointer"
-      >
-        {slides.map((slide, idx) => (
-          <SwiperSlide key={`thumb-${idx}`}>
-            <div className="relative w-[90px] h-14 border rounded overflow-hidden">
-              <Image
-                src={slide.src}
-                alt={`Thumbnail ${idx}`}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>  */}
-     
     </div>
   );
 }
