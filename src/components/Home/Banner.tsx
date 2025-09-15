@@ -10,10 +10,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Banner section */}
-      {/* <Banner /> */}
-
-      {/* Second section image slider */}
       <ImageSlider slides={imageSlides} />
     </>
   );

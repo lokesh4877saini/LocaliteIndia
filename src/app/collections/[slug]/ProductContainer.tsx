@@ -18,7 +18,7 @@ interface Product {
     image_gallery: string[];
     main_image_url: string;
     available_sizes?: string[];
-    available_colors?: { hex: string; name: string }[];
+    available_colors?: { colors:string[]; };
     description: string;
     is_handmade: boolean;
     material: string;
@@ -108,13 +108,13 @@ const ProducContainer = ({ slug }: productProps): ReactNode => {
                     <div>
                         <h3 className="font-semibold mb-2">Colors</h3>
                         <div className="flex gap-2">
-                            {available_colors?.map((color) => (
-                                <div key={color.hex} className="flex items-center gap-1">
+                            {available_colors?.colors?.map((color) => (
+                                <div key={color} className="flex items-center gap-1">
                                     <div
                                         className="w-5 h-5 rounded-full border"
-                                        style={{ backgroundColor: color.hex }}
+                                        style={{ backgroundColor: color }}
                                     ></div>
-                                    <span className="text-sm text-gray-600">{color.name}</span>
+                                    <span className="text-sm text-gray-600">{color}</span>
                                 </div>
                             ))}
                         </div>
@@ -131,8 +131,10 @@ const ProducContainer = ({ slug }: productProps): ReactNode => {
                     <div className="flex gap-4">
                         <AddToCartButton 
                              item={{
-          id:String(34),
-          title: name,
+          id:Number(34),
+          name: name,
+          slug:slug,
+          size:'',
           price: Number(34),
           quantity: 1,
           image: []
@@ -141,8 +143,10 @@ const ProducContainer = ({ slug }: productProps): ReactNode => {
                         />
                         <AddToCartButton 
                              item={{
-          id:String(34),
-          title: name,
+          id:Number(34),
+          name: name,
+          slug:slug,
+          size:'',
           price: Number(34),
           quantity: 1,
           image: []

@@ -1,10 +1,11 @@
-import { ReactElement, ReactNode } from "react";
-import { ProductTest } from "@/types/Product";
+import { ReactElement } from "react";
 import ProductSlider from "../../shared/ProductSlider";
-// import { useProductList } from "@/hooks/home/getallProductList";
-import {fetchAllProducts} from '@/lib/api/Product';
+import { mapFromProductTY } from "@/utils/product-mappers";
+import { ProductTY } from "@/types/product";
+import { fetchAllProducts } from "@/lib/api/Product";
+
 export default async function ProductSection(): Promise<ReactElement> {
-  const products: ProductTest[] = await fetchAllProducts();
+  const products: ProductTY[] = await fetchAllProducts();
   return (
     <section className="bg-[whitesmoke] text-[#343434] pb-10">
       <div className="container mx-auto">
@@ -16,7 +17,10 @@ export default async function ProductSection(): Promise<ReactElement> {
           <hr className="flex-grow border-t border-gray-300" />
         </div>
 
-        <ProductSlider products={products} title="New  Arrivals" />
+        <ProductSlider
+          title="Featured"
+          products={products.map(mapFromProductTY)} 
+        />
       </div>
     </section>
   );

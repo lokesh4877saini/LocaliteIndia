@@ -1,24 +1,4 @@
-// types.ts
-
-export type Product = {
-  id: string;
-  Pname: string;
-  basePrice: string;
-  SellingPrice: string;
-  newArrivals: boolean;
-  image: string[];
-  title: string;
-  seo: { metaTitle: string };
-  description: string;
-};
-
-export type ProductSliderProps = {
-  title: string;
-  products: ProductTest[];
-};
-
-
-export type ProductTest = {
+export type ProductTY = {
   id: number;
   name: string;
   slug: string;
@@ -54,3 +34,28 @@ export type ProductTest = {
   meta_title: string;
   meta_description: string;
 }
+
+export type Product = {
+  id: string;
+  Pname: string;
+  basePrice: string;
+  SellingPrice: string;
+  newArrivals: boolean;
+  image: string[];
+  title: string;
+  seo: { metaTitle: string };
+  description: string;
+};
+
+export const productData: StandardizedProduct = {
+  id: item.id,
+  name: item.name,
+  price: item.price,
+  basePrice: item.basePrice ?? item.price,  
+  size: item.size || [],
+  image: item.image,
+  description: item.description || '',
+  slug: item.slug || '',
+  isFeatured: item.isFeatured ?? false,
+};
+

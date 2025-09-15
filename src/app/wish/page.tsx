@@ -1,11 +1,11 @@
 import React from 'react'
-
+import WishlistClient from './WishListContainer'
 const page = () => {
   return (
-    <div>
-      <h1>Wish List Server Component</h1>
+    <div className='container mx-auto px-6 md:px-12'>
+      <WishlistClient />
     </div>
   )
 }
 
-export default page
+export default page;

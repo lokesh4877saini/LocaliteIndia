@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Loader from '@/shared/Loader'
 const page = () => {
   return (
     <div>
-      <h1>loading Server Component</h1>
+      <Loader/>
     </div>
   )
 }

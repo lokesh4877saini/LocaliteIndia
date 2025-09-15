@@ -5,7 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import ProductCard from './ProductCard';
-import { ProductSliderProps } from '@/types/Product';
+import { ProductSliderProps } from '@/types/Slider.p';
 import { FC } from 'react';
 
 const ProductSlider: FC<ProductSliderProps> = ({ title, products }) => {
@@ -19,10 +19,10 @@ const ProductSlider: FC<ProductSliderProps> = ({ title, products }) => {
 
   return (
     <section
-      className="w-full bg-gradient-to-br from-white via-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8 shadow-inner rounded-lg"
+      className="w-full py-6 "
       data-aos="fade-up"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full">
         <div className="relative inline-block mb-10" data-aos="fade-right">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
             {title}
@@ -36,7 +36,9 @@ const ProductSlider: FC<ProductSliderProps> = ({ title, products }) => {
               data-aos="zoom-in"
               data-aos-delay={`${index * 100}`} // stagger effect
             >
-              <ProductCard {...item} />
+              {/* <ProductCard {...item} /> */}
+              <ProductCard product={item} />
+
             </div>
           ))}
         </div>
