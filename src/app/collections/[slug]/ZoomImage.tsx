@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { XIcon } from 'lucide-react';
 
 type ZoomModalMagnifierProps = {
-  selectedImage?: string;
+  selectedImage?: string | null;
   main_image_url: string;
   name: string;
 };

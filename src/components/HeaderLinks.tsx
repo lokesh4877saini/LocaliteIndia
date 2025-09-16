@@ -160,7 +160,7 @@ const HeaderLinks = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="w-full fixed inset-0 z-40 bg-black/50 flex items-start justify-center pt-[12px]"
+            className="w-full fixed inset-0 z-[110] bg-black/50 flex items-start justify-center pt-[12px]"
             onClick={handleCloseSearchBar}
           >
             <motion.div

@@ -40,6 +40,10 @@ export default function ImageSlider({ slides }: { slides: Slide[] }) {
 
   return (
     <div className="relative w-full mx-auto mb-10">
+      <div className="absolute -bottom-15 left-0 w-full h-10 bg-gradient-to-b from-white/40 to-transparent z-10 pointer-events-none" />
+      <div className="absolute -bottom-0 left-0 w-full h-10 bg-gradient-to-t from-white/40 to-transparent z-10 pointer-events-none" />
+
+
       {/* Main Swiper */}
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
@@ -57,12 +61,12 @@ export default function ImageSlider({ slides }: { slides: Slide[] }) {
       >
         {slides.map((slide, idx) => (
           <SwiperSlide key={idx}>
-            <div className="relative w-full p-5 bg-red-700 h-[60vh]">
+            <div className="relative w-full p-5 bg-primary h-[65vh]">
               <Image
                 src={slide.src}
                 alt={slide.alt || `Slide ${idx + 1}`}
                 fill
-                unoptimized
+                // unoptimized
                 className="object-cover object-center"
                 priority={idx === 0}
               />

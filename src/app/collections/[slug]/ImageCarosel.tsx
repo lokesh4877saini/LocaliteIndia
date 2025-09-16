@@ -5,7 +5,7 @@ import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 interface VerticalImageCarouselProps {
   fallbackImage: string[];
   name: string;
-  selectedImage: string;
+  selectedImage: string | null;
   setSelectedImage: (url: string) => void;
 }
 
@@ -17,7 +17,9 @@ const ImageCarousel: React.FC<VerticalImageCarouselProps> = ({
 }) => {
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const selectedIndex = fallbackImage.indexOf(selectedImage);
+  const selectedIndex = selectedImage !== null 
+  ? fallbackImage.indexOf(selectedImage) 
+  : -1;
 
   const scrollToImage = (index: number) => {
     const target = imageRefs.current[index];

@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import { useFetcher } from "@/hooks/useFecher";
 import ZoomImage from "./ZoomImage";
@@ -15,7 +15,7 @@ interface Product {
     base_price: string;
     sale_price: string;
     price_currency: string;
-    image_gallery: string[];
+    image_gallery: {images:string[]};
     main_image_url: string;
     available_sizes?: string[];
     available_colors?: { colors:string[]; };
@@ -31,16 +31,20 @@ interface Product {
 }
 
 const ProducContainer = ({ slug }: productProps): ReactNode => {
-    const fallbackImages = Array.from({ length: 100 }).map((_, i) =>
-        `https://picsum.photos/seed/${i}/200/200`
-    );
-
-    const [selectedImage, setSelectedImage] = useState<string>(fallbackImages[0]);
+    // const fallbackImages = Array.from({ length: 100 }).map((_, i) =>
+    //     `https://picsum.photos/seed/${i}/200/200`
+    // );
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const { data, loading, error } = useFetcher<Product>({
         url: slug,
         method: "GET",
         dep: slug,
     });
+    useEffect(() => {
+    if (data?.image_gallery?.images?.length) {
+        setSelectedImage(data.image_gallery.images[0]);
+    }
+}, [data]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -63,6 +67,7 @@ const ProducContainer = ({ slug }: productProps): ReactNode => {
         dye_type,
         design_origin,
     } = data;
+    const fallbackImages = data.image_gallery.images;
     return (
         <div className="container mx-auto px-4 sm:px-6 md:px-15 ">
             <div className="w-full mx-auto py-8 grid grid-cols-1 md:grid-cols-12 gap-8">

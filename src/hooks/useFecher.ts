@@ -26,6 +26,7 @@ function useFetcher<TResponse = any, TRequest = any>({
                     body: method !== "GET" ? JSON.stringify(requestData) : null,
                     signal: controller.signal,
                 });
+                console.log(response);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
