@@ -3,7 +3,6 @@
 import React from 'react';
 import { useCartStore } from '@/store/cartStore';
 import { CartItem } from '@/types/cart';
-import ProductSlider from '@/shared/ProductSlider';
 import ProductCard from '@/shared/ProductCard';
 import { mapCartItemToProductCardData } from '@/utils/product-mappers';
 const CartlistClient: React.FC = () => {

@@ -1,7 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type ProductListStore<T> = {
+type ProductBase = {
+  id: number;
+  size?: string | number;
+};
+type ProductListStore<T extends ProductBase> = {
   hasHydrated: boolean;
   items: T[];
   addItem: (raw: T) => Promise<void>;
@@ -10,7 +13,8 @@ type ProductListStore<T> = {
   isInList: (id: number) => boolean;
 };
 
-export function createProductListStore<T>(
+
+export function createProductListStore<T extends ProductBase>(
   storageKey: string,
   mapProduct: (raw: T) => T
 ) {
@@ -23,9 +27,8 @@ export function createProductListStore<T>(
         addItem: async (raw: T) => {
           const product = mapProduct(raw);
 
-          const exists = get().items.find((item: any) =>
-            item.id === (product as any).id &&
-            item.size === (product as any).size
+          const exists = get().items.find(
+            (item) => item.id === product.id && item.size === product.size
           );
 
           if (exists) {
@@ -36,10 +39,9 @@ export function createProductListStore<T>(
           set((state) => ({ items: [...state.items, product] }));
         },
 
-
         removeItem: (id) => {
           set((state) => ({
-            items: state.items.filter((item: any) => item.id !== id),
+            items: state.items.filter((item) => item.id !== id),
           }));
         },
 
@@ -48,7 +50,7 @@ export function createProductListStore<T>(
         },
 
         isInList: (id) => {
-          return get().items.some((item: any) => item.id === id);
+          return get().items.some((item) => item.id === id);
         },
       }),
       {

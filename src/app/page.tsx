@@ -2,6 +2,7 @@
 import Banner from "@/components/Home/Banner";
 import ProductSection from "@/components/Home/ProductSection";
 import ProductGallary from "./ProductGallary";
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (

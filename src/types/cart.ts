@@ -5,5 +5,5 @@ export type CartItem = {
   slug:string;
   quantity: number;
   size:string;
-  image: string[];    // now an array of image URLs
+  image: {images:string[]};    // now an array of image URLs
 };

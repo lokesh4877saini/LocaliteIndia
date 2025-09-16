@@ -85,7 +85,7 @@ const ProductModal = ({ product, selectedSize, onClose }: ProductModalProps) => 
                         id: product.id,
                         slug:product.slug ,
                         name: product.name,
-                        image: [primaryImage, ...product.image],
+                        image: {images:[primaryImage, ...product.image.images]},
                         price: product.price,
                         quantity: 1,
                         size: size,

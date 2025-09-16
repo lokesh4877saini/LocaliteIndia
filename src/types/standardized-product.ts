@@ -4,7 +4,9 @@ export type StandardizedProduct = {
   price: number;
   basePrice: number;
   size:string[];
-  image: string[];
+  image: {
+    images:string[];
+  }
   description: string;
   slug: string;
   isFeatured?: boolean;

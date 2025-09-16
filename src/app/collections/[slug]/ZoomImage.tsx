@@ -124,7 +124,7 @@ const ZoomModalMagnifier: React.FC<ZoomModalMagnifierProps> = ({
               className="relative basis-2/5 aspect-square"
               style={{ width: '500px', height: '500px' }}
             >
-              <img
+              <Image
                 ref={imageRef}
                 src={imageUrl}
                 alt={name}

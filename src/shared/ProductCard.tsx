@@ -31,7 +31,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [clickedSize, setClickedSize] = useState<string | null>(null);
   const cartItems = useCartStore(state => state.items);
   const primaryImage = "/product/productImage.jpeg";
-  const hoverImage = image[0];
+  const hoverImage = image.images[0] ;
 
   const isSizeInCart = (size: string) => {
     return cartItems.some(item => item.id === product.id && item.size === size);
@@ -52,7 +52,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             size: clickedSize ?? '',
             price,
             quantity: 1,
-            image: [primaryImage, hoverImage],
+            image: {images:[primaryImage, hoverImage]},
           }}
         />
       </div>

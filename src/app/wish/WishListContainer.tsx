@@ -3,7 +3,6 @@
 import React from 'react';
 import { useWishStore } from '@/store/WishStore';
 import { CartItem } from '@/types/cart';
-import ProductSlider from '@/shared/ProductSlider';
 import ProductCard from '@/shared/ProductCard';
 import { mapCartItemToProductCardData } from '@/utils/product-mappers';
 const WishlistClient: React.FC = () => {

@@ -1,6 +1,5 @@
 'use client'
 import { ReactNode, useEffect, useState } from "react";
-import Image from "next/image";
 import { useFetcher } from "@/hooks/useFecher";
 import ZoomImage from "./ZoomImage";
 import KeyHighlights from "./KeyHighlights";
@@ -54,7 +53,6 @@ const ProducContainer = ({ slug }: productProps): ReactNode => {
         base_price,
         sale_price,
         price_currency,
-        image_gallery,
         main_image_url,
         available_sizes,
         available_colors,
@@ -142,7 +140,7 @@ const ProducContainer = ({ slug }: productProps): ReactNode => {
           size:'',
           price: Number(34),
           quantity: 1,
-          image: []
+          image: {images:[]}
         }}
         className="w-1/2"
                         />
@@ -154,7 +152,7 @@ const ProducContainer = ({ slug }: productProps): ReactNode => {
           size:'',
           price: Number(34),
           quantity: 1,
-          image: []
+          image: {images:[]}
         }}
         className="w-1/2"
         label="Buy It Now"

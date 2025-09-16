@@ -1,7 +1,7 @@
 import { CartItem } from "@/types/cart";
 import { ProductTY } from "@/types/product";
 import { StandardizedProduct } from "@/types/standardized-product";
-import { ProductCardData } from "@/types/product";
+import { productData } from "@/types/product";
 
 // Maps ProductTY to StandardizedProduct
 export const mapFromProductTY = (product: ProductTY): StandardizedProduct => ({
@@ -10,7 +10,7 @@ export const mapFromProductTY = (product: ProductTY): StandardizedProduct => ({
   name: product.name,
   price: Number(product.sale_price ?? product.base_price),
   basePrice: Number(product.base_price),
-  image: [product.main_image_url, ...(product.image_gallery.images)],
+  image:{images:[...product.image_gallery.images]},
   description: product.short_description,
   size: [...product.available_sizes],
   slug: product.slug,
@@ -18,7 +18,7 @@ export const mapFromProductTY = (product: ProductTY): StandardizedProduct => ({
 });
 
 // Maps CartItem to ProductCardData
-export function mapCartItemToProductCardData(item: CartItem): ProductCardData {
+export function mapCartItemToProductCardData(item: CartItem): typeof productData {
   return {
     id: item.id,
     name: item.name,
@@ -39,7 +39,7 @@ export const mapCartItemToStandardizedProduct = (item: CartItem): StandardizedPr
   price: item.price,
   basePrice: item.price ,
   size: [item.size],
-  image: item.image,
+  image: {images:[...item.image.images]},
   description:'',
   slug:'',
   isFeatured: false,

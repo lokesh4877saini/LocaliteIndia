@@ -19,7 +19,9 @@ export type ProductTY = {
   design_origin: string;
   care_instructions: string;
   main_image_url: string;
-  image_gallery: string[];
+  image_gallery: {
+    images:
+    string[]};
   available_sizes: string[];
   available_colors: {
     hex: string;
