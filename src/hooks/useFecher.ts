@@ -2,7 +2,7 @@
 import { UseProductListOptions, UseProductListResult } from '../types/hookTypes';
 import { useEffect, useState } from "react";
 const preFix = `${process.env.NEXT_PUBLIC_API_ALL_PRODUCTS!}`;
-function useFetcher<TResponse = any, TRequest = any>({
+function useFetcher<TResponse = unknown, TRequest = unknown>({
     url,
     method = "POST",
     limit,
@@ -26,14 +26,17 @@ function useFetcher<TResponse = any, TRequest = any>({
                     body: method !== "GET" ? JSON.stringify(requestData) : null,
                     signal: controller.signal,
                 });
+                console.log(response);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const json = (await response.json()) as TResponse;
                 setData(json);
-            } catch (err: any) {
-                if (err.name !== "AbortError") {
-                    setError(err.message || "Something went wrong");
+            } catch (err: unknown) {
+               if (err instanceof Error && err.name !== 'AbortError') {
+                setError(err.message);
+                } else {
+                setError('An unknown error occurred');
                 }
             } finally {
                 setLoading(false);

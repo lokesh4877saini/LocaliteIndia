@@ -1,8 +1,7 @@
-import { ProductTest } from "@/types/Product";
-export async function fetchAllProducts(): Promise<ProductTest[]> {
+import { ProductTY } from "@/types/product";
+export async function fetchAllProducts(): Promise<ProductTY[]> {
   try {
     const url = `${process.env.NEXT_PUBLIC_API_ALL_PRODUCTS!}allproducts`;
-
     const res = await fetch(url, {
       method: "GET",
       cache: "no-store",
@@ -11,9 +10,8 @@ export async function fetchAllProducts(): Promise<ProductTest[]> {
     if (!res.ok) {
       throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);
     }
-
-    const product: ProductTest[] = await res.json();
-    return product;
+    const {data} = await res.json();
+    return data as ProductTY[];
   } catch (error) {
     console.error("Fetch error:", error);
     throw error;

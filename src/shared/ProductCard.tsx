@@ -1,85 +1,128 @@
 'use client';
 
-import { ReactNode } from "react";
-import AddToCartButton from "./AddToCart";
-import AddToWishButton from "./AddToWish";
-import { ProductTest } from "@/types/Product";  // Your updated Product type
-import TriangleBadge from "@/ui/Badge";
-import { sanitizer } from '@/utils/converter';
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCartStore } from "@/store/cartStore";
+import { StandardizedProduct } from "@/types/standardized-product";
 
-const ProductCard = ({
-  id,
-  name,
-  base_price,
-  sale_price,
-  is_featured,
-  slug,
-  main_image_url,
-  image_gallery,
-  short_description,
-}: ProductTest): ReactNode => {
+import AddToWishButton from "./AddToWish";
+import Badge from "@/ui/Badge";
+import ModalPortal from "@/components/ModalPortal";
+import ProductModal from '@/shared/ProductModal';
+
+type ProductCardProps = {
+  product: StandardizedProduct;
+};
+
+const ProductCard = ({ product }: ProductCardProps) => {
+  const {
+    id,
+    name,
+    price,
+    basePrice,
+    description,
+    image,
+    slug,
+    size,
+    isFeatured,
+  } = product;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [clickedSize, setClickedSize] = useState<string | null>(null);
+  const cartItems = useCartStore(state => state.items);
   const primaryImage = "/product/productImage.jpeg";
-//   const primaryImage = main_image_url || "/product/productImage.jpeg" ;
-  const hoverImage = image_gallery && image_gallery.length > 0 ? image_gallery[0] : primaryImage;
+  const hoverImage = image.images[0] ;
 
-  // Price display: sale price if available, else base price
-  const SellingPrice = sale_price ?? base_price;
+  const isSizeInCart = (size: string) => {
+    return cartItems.some(item => item.id === product.id && item.size === size);
+  };
 
   return (
-    <div className="border p-4 w-70 rounded shadow relative group transform transition-transform duration-300 hover:scale-105">
-
-      {/* Show NEW badge if featured (adjust if you want a different condition) */}
-      {is_featured && (
-        <TriangleBadge text="NEW" />
-      )}
-
+    <div className="w-[310px] h-[500px] relative group transform transition-transform duration-300 hover:scale-105"
+    
+    >
+  {isFeatured && <Badge text="NEW" />}
+      
       <div className="absolute top-2 right-2 z-10">
-        <AddToWishButton productId={String(id)} />
+        <AddToWishButton
+          item={{
+            id,
+            name,
+            slug,
+            size: clickedSize ?? '',
+            price,
+            quantity: 1,
+            image: {images:[primaryImage, hoverImage]},
+          }}
+        />
       </div>
 
-      <Link href={`/collections/${sanitizer(slug || '')}`}>
-        <div className="relative w-full h-60 mb-4 overflow-hidden">
+      <Link href={`/collections/${slug}`}>
+        <div className="relative w-full rounded-lg z-0 p-5" style={{height:'340px',}}>
           <Image
             src={primaryImage}
             alt={name}
             fill
             unoptimized
-            className="w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0 absolute top-0 left-0"
+            className="w-full h-full object-cover rounded-lg transition-opacity duration-300 opacity-100 group-hover:opacity-0"
           />
           <Image
-            src={hoverImage || "/product/productImage2.jpeg"}
+            src={hoverImage}
+            alt={`${name} hover`}
             fill
             unoptimized
-            alt={`${name} hover`}
-            className="w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute top-0 left-0"
+            className="w-full h-full rounded-lg object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute top-0 left-0"
           />
         </div>
       </Link>
 
       <h2 className="text-lg font-semibold">{name}</h2>
-      <p className="text-sm text-gray-500 mb-2">{short_description}</p>
+      <p className="text-sm text-gray-500 mb-2 break-all">{description}</p>
 
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-red-600 font-bold">₹{SellingPrice}</span>
-        {sale_price && (
-          <span className="line-through text-gray-400">₹{base_price}</span>
+        <span className="text-red-600 font-bold">₹{price}</span>
+        {basePrice !== price && (
+          <span className="line-through text-gray-400">₹{basePrice}</span>
         )}
       </div>
 
-      <AddToCartButton
-        item={{
-          id:String(id),
-          title: name,
-          price: Number(SellingPrice),
-          quantity: 1,
-          image: [primaryImage, hoverImage]
-        }}
-        onAdd={(item) => {
-          // console.log("Added to cart:", item);
-        }}
-      />
+      {Array.isArray(size) && size.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {size.map((s) => (
+            <button
+              key={s}
+              type="button"
+              className={`px-3 py-1 border rounded transition-all cursor-pointer
+                ${clickedSize === s
+                  ? 'bg-gray-800 text-white border-gray-800'
+                  : isSizeInCart(s)
+                    ? 'bg-green-400 text-white border-black'
+                    : 'bg-gray-100 text-black border-gray-400 hover:border-black'
+                }
+              `}
+              onClick={() => {
+                setClickedSize(s);
+                setModalOpen(true);
+              }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {modalOpen && clickedSize && (
+        <ModalPortal>
+          <ProductModal
+            product={product}
+            selectedSize={clickedSize}
+            onClose={() => {
+              setModalOpen(false);
+              setClickedSize(null);
+            }}
+          />
+        </ModalPortal>
+      )}
     </div>
   );
 };

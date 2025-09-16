@@ -1,7 +1,9 @@
 export type CartItem = {
-  id: string;         // product ID
-  title: string;
+  id: number;   
   price: number;
+  name:string;
+  slug:string;
   quantity: number;
-  image: string[];    // now an array of image URLs
+  size:string;
+  image: {images:string[]};    // now an array of image URLs
 };

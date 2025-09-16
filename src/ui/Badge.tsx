@@ -1,45 +1,26 @@
 import React from 'react';
 
-interface TriangleBadgeProps {
+interface BadgeProps {
   text?: string;
-  color?: string; // Tailwind color class string
+  bgColor?: string;
+  textColor?: string;
 }
 
-const TriangleBadge: React.FC<TriangleBadgeProps> = ({
+const Badge: React.FC<BadgeProps> = ({
   text = 'NEW',
-  color = 'bg-green-500',
+  bgColor = 'bg-black',
+  textColor = 'text-white',
 }) => (
-<span
-  className="absolute top-0 left-0 z-10"
-  style={{
-    width: '60px',
-    height: '60px',
-  }}
->
-  {/* Shadow layer */}
-  {/* <span
-    className="absolute top-[2px] left-[0px] w-full h-full rounded-tl-md"
-    style={{
-      backgroundColor: 'rgba(0,0,0,0.25)',
-      clipPath: 'polygon(0 0, 100% 0, 0 100%)',
-      filter: 'blur(3px)',
-      zIndex: 0,
-    }}
-  /> */}
-  {/* Main colored triangle */}
   <span
-    className={`relative w-full h-full ${color} text-white text-[10px] font-bold px-2 py-1 flex items-center justify-center rounded-tl-[3]`}
-    style={{
-      clipPath: 'polygon(0 0, 100% 0, 0 100%)',
-    }}
+  style={
+    {
+      left:'0.5rem'
+    }
+  }
+    className={`absolute top-2 z-10 px-2 py-1 text-[10px] font-bold rounded-lg shadow-sm ${bgColor} ${textColor} border-2 border-red-500 bg-opacity-50`}
   >
-    <span className="rotate-[-45deg] font-bold text-sm md:text-base translate-x-[-10px] -translate-y-[10px] z-10">
-  {text}
-</span>
-
+    {text}
   </span>
-</span>
-
 );
 
-export default TriangleBadge;
+export default Badge;

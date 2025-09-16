@@ -9,7 +9,7 @@ export default function Footer(): ReactNode {
           <div className="md:w-1/4">
             <h2 className="text-xl font-semibold mb-4">About Us</h2>
             <p className="text-sm leading-relaxed">
-              We create stylish, sustainable clothing made to last. Your wardrobe's new best friend.
+              We create stylish, sustainable clothing made to last. Your wardrobes new best friend.
             </p>
           </div>
 

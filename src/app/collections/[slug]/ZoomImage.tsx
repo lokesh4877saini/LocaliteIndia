@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { XIcon } from 'lucide-react';
 
 type ZoomModalMagnifierProps = {
-  selectedImage?: string;
+  selectedImage?: string | null;
   main_image_url: string;
   name: string;
 };
@@ -124,7 +124,7 @@ const ZoomModalMagnifier: React.FC<ZoomModalMagnifierProps> = ({
               className="relative basis-2/5 aspect-square"
               style={{ width: '500px', height: '500px' }}
             >
-              <img
+              <Image
                 ref={imageRef}
                 src={imageUrl}
                 alt={name}
