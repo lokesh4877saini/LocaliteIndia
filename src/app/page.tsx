@@ -12,7 +12,7 @@ export default function Home() {
       <main
         className="container bg-[whitesmoke] text-[#343434] min-h-screen flex flex-col mx-auto md:px-12 px-4"
       >
-        <ProductGallary/> {/* Rahul need to work this file */}
+        <ProductGallary/> 
         <ProductCategorySection />
         <ProductSection />   
 
